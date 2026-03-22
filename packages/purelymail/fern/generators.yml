@@ -15,11 +15,9 @@ groups:
         version: 3.59.3
         output:
           location: npm
-          package-name: purelymail
+          package-name: "@opensdkdev/purelymail-typescript"
           token: OIDC
         config:
             namespaceExport: PurelyMailSDK
         github:
           repository: opensdkdev/purelymail-typescript
-          branch: main
-          mode: push

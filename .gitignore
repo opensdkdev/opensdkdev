@@ -1,3 +1,4 @@
 .definition
 node_modules
 .vscode
+opencode.json

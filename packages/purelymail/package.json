@@ -11,6 +11,6 @@
   },
   "packageManager": "pnpm@10.31.0",
   "devDependencies": {
-    "fern-api": "^4.42.0"
+    "fern-api": "4.26.0"
   }
 }
