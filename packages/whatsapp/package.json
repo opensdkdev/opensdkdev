@@ -1,5 +1,5 @@
 {
-  "name": "@opendevsdk/purelymail",
+  "name": "@opendevsdk/whatsapp",
   "private": true,
   "publishConfig": {
     "access": "restricted"

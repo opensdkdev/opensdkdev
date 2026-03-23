@@ -1,0 +1,180 @@
+types:
+  # ---------------------------------------------------------------------------
+  # Language & locale enums
+  # ---------------------------------------------------------------------------
+
+  WhatsappApiLanguageTag:
+    docs: WhatsApp-specific language tag values (underscore format).
+    enum:
+      - name: af
+        value: af
+      - name: sq
+        value: sq
+      - name: ar
+        value: ar
+      - name: az
+        value: az
+      - name: bn
+        value: bn
+      - name: bg
+        value: bg
+      - name: ca
+        value: ca
+      - name: zh_CN
+        value: zh_CN
+      - name: zh_HK
+        value: zh_HK
+      - name: zh_TW
+        value: zh_TW
+      - name: hr
+        value: hr
+      - name: cs
+        value: cs
+      - name: da
+        value: da
+      - name: nl
+        value: nl
+      - name: en
+        value: en
+      - name: en_GB
+        value: en_GB
+      - name: en_US
+        value: en_US
+      - name: et
+        value: et
+      - name: fil
+        value: fil
+      - name: fi
+        value: fi
+      - name: fr
+        value: fr
+      - name: de
+        value: de
+      - name: el
+        value: el
+      - name: gu
+        value: gu
+      - name: ha
+        value: ha
+      - name: he
+        value: he
+      - name: hi
+        value: hi
+      - name: hu
+        value: hu
+      - name: id
+        value: id
+      - name: ga
+        value: ga
+      - name: it
+        value: it
+      - name: ja
+        value: ja
+      - name: kn
+        value: kn
+      - name: kk
+        value: kk
+      - name: ko
+        value: ko
+      - name: lo
+        value: lo
+      - name: lv
+        value: lv
+      - name: lt
+        value: lt
+      - name: mk
+        value: mk
+      - name: ms
+        value: ms
+      - name: ml
+        value: ml
+      - name: mr
+        value: mr
+      - name: nb
+        value: nb
+      - name: fa
+        value: fa
+      - name: pl
+        value: pl
+      - name: pt_PT
+        value: pt_PT
+      - name: pt_BR
+        value: pt_BR
+      - name: pa
+        value: pa
+      - name: ro
+        value: ro
+      - name: ru
+        value: ru
+      - name: sr
+        value: sr
+      - name: sk
+        value: sk
+      - name: sl
+        value: sl
+      - name: es
+        value: es
+      - name: es_AR
+        value: es_AR
+      - name: es_ES
+        value: es_ES
+      - name: es_MX
+        value: es_MX
+      - name: sw
+        value: sw
+      - name: sv
+        value: sv
+      - name: ta
+        value: ta
+      - name: te
+        value: te
+      - name: th
+        value: th
+      - name: tr
+        value: tr
+      - name: uk
+        value: uk
+      - name: ur
+        value: ur
+      - name: uz
+        value: uz
+      - name: vi
+        value: vi
+      - name: zu
+        value: zu
+
+  WhatsappApiISOCountryCode:
+    docs: ISO 3166-1 alpha-2 country codes supported by WhatsApp data localisation.
+    enum:
+      - AU
+      - ID
+      - IN
+      - JP
+      - SG
+      - KR
+      - DE
+      - CH
+      - GB
+      - BR
+      - BH
+      - ZA
+      - AE
+      - CA
+
+  # ---------------------------------------------------------------------------
+  # Error object
+  # ---------------------------------------------------------------------------
+  WhatsappApiErrorObject:
+    properties:
+      code: integer
+      title: string
+      message: string
+      error_data:
+        type: WhatsappApiErrorData
+
+  WhatsappApiErrorData:
+    properties:
+      details: string
+
+  WhatsappApiErrors:
+    type: list<WhatsappApiErrorObject>

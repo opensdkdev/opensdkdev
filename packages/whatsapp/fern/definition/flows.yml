@@ -1,0 +1,311 @@
+imports:
+  common: common.yml
+  messages: messages.yml
+
+types:
+  # ---------------------------------------------------------------------------
+  # Enums
+  # ---------------------------------------------------------------------------
+  WhatsappApiFlowCategory:
+    enum:
+      - SIGN_UP
+      - SIGN_IN
+      - APPOINTMENT_BOOKING
+      - LEAD_GENERATION
+      - CONTACT_US
+      - CUSTOMER_SUPPORT
+      - SURVEY
+      - OTHER
+
+  WhatsappApiFlowStatus:
+    enum:
+      - DRAFT
+      - PUBLISHED
+      - DEPRECATED
+      - BLOCKED
+      - THROTTLED
+
+  WhatsappApiFlowCanSendMessageStatus:
+    enum:
+      - AVAILABLE
+      - LIMITED
+      - BLOCKED
+
+  WhatsappApiFlowAction:
+    enum:
+      - name: INIT
+        value: INIT
+      - name: BACK
+        value: BACK
+      - name: data_exchange
+        value: data_exchange
+      - name: navigate
+        value: navigate
+      - name: ping
+        value: ping
+
+  # ---------------------------------------------------------------------------
+  # Flow Data Models
+  # ---------------------------------------------------------------------------
+  WhatsappApiFlowValidationError:
+    properties:
+      error: string
+      error_type: string
+      message: string
+      line_start: integer
+      line_end: integer
+      column_start: integer
+      column_end: integer
+
+  WhatsappApiFlowMediaEncryptionMetadata:
+    properties:
+      encrypted_hash: string
+      iv: string
+      encryption_key: string
+      hmac_key: string
+      plaintext_hash: string
+
+  WhatsappApiFlowMedia:
+    properties:
+      media_id: string
+      cdn_url: string
+      file_name: string
+      encryption_metadata: WhatsappApiFlowMediaEncryptionMetadata
+
+  WhatsappApiFlowMetadata:
+    properties:
+      name: string
+      categories: list<WhatsappApiFlowCategory>
+      application_id: optional<string>
+      endpoint_uri: optional<string>
+
+  WhatsappApiFlowPreview:
+    properties:
+      preview_url: string
+      expires_at: string
+
+  WhatsappApiFlowPreviewParams:
+    properties:
+      interactive: optional<boolean>
+      flow_token: optional<string>
+      flow_action: optional<messages.WhatsappApiInteractiveFlowAction>
+      flow_action_payload: optional<WhatsappApiFlowActionPayload>
+      phone_number: optional<string>
+      debug: optional<boolean>
+
+  WhatsappApiFlowHealthStatus:
+    properties:
+      can_send_message: WhatsappApiFlowCanSendMessageStatus
+
+  WhatsappApiFlowValidationResult:
+    properties:
+      validation_errors: list<WhatsappApiFlowValidationError>
+
+  # ---------------------------------------------------------------------------
+  # Flow Response Models
+  # ---------------------------------------------------------------------------
+  WhatsappApiFlowSummary:
+    docs: Summary row returned in list responses.
+    properties:
+      id: string
+      name: string
+      status: WhatsappApiFlowStatus
+      categories: list<WhatsappApiFlowCategory>
+      validation_errors: list<WhatsappApiFlowValidationError>
+
+  WhatsappApiFlowDetail:
+    docs: Full flow detail returned by a single-flow read.
+    extends: WhatsappApiFlowSummary
+    properties:
+      json_version: optional<string>
+      data_api_version: optional<string>
+      endpoint_uri: optional<string>
+      preview: optional<WhatsappApiFlowPreviewResponse>
+      health_status: optional<WhatsappApiFlowHealthStatus>
+
+  WhatsappApiFlowPreviewResponse:
+    properties:
+      id: string
+      preview: WhatsappApiFlowPreview
+
+  WhatsappApiFlowActionPayload:
+    properties:
+      screen: string
+      data: map<string, unknown>
+
+  # ---------------------------------------------------------------------------
+  # Request/Response DTOs
+  # ---------------------------------------------------------------------------
+  WhatsappApiCreateFlowRequest:
+    properties:
+      name: string
+      categories: list<WhatsappApiFlowCategory>
+      clone_flow_id: optional<string>
+      endpoint_uri: optional<string>
+      flow_json: optional<string>
+      publish: optional<boolean>
+
+  WhatsappApiCreateFlowResponse:
+    properties:
+      id: string
+
+  WhatsappApiUpdateFlowMetadataRequest:
+    properties:
+      name: optional<string>
+      categories: optional<list<WhatsappApiFlowCategory>>
+      endpoint_uri: optional<string>
+      application_id: optional<string>
+
+  WhatsappApiUpdateFlowMetadataResponse:
+    properties:
+      success: boolean
+
+  WhatsappApiDeleteFlowResponse:
+    properties:
+      success: boolean
+
+  WhatsappApiGetFlowsQuery:
+    properties:
+      fields: optional<string>
+
+  WhatsappApiFlowPagingCursors:
+    properties:
+      before: string
+      after: string
+
+  WhatsappApiFlowPaging:
+    properties:
+      cursors: WhatsappApiFlowPagingCursors
+
+  WhatsappApiGetManyFlowsResponse:
+    properties:
+      data: list<WhatsappApiFlowSummary>
+      paging: WhatsappApiFlowPaging
+
+  WhatsappApiUpdateFlowJsonResponse:
+    properties:
+      success: boolean
+      validation_errors: list<WhatsappApiFlowValidationError>
+
+  WhatsappApiPublishFlowResponse:
+    properties:
+      success: boolean
+
+service:
+  base-path: ""
+  auth: true
+  endpoints:
+    createFlow:
+      docs: Create a new WhatsApp Flow under a WABA account.
+      url: graph
+      path: /{wabaId}/flows
+      method: POST
+      path-parameters:
+        wabaId:
+          docs: WhatsApp Business Account ID
+          type: string
+      request:
+        name: CreateFlowRequestWrapper
+        body:
+          properties:
+            name: string
+            categories: list<WhatsappApiFlowCategory>
+            clone_flow_id: optional<string>
+            endpoint_uri: optional<string>
+            flow_json: optional<string>
+            publish: optional<boolean>
+      response: WhatsappApiCreateFlowResponse
+
+    updateFlowMetadata:
+      docs: Update name, categories, or endpoint URI of an existing flow.
+      url: graph
+      path: /{flowId}
+      method: POST
+      path-parameters:
+        flowId: string
+      request:
+        name: UpdateFlowMetadataRequestWrapper
+        body:
+          properties:
+            name: optional<string>
+            categories: optional<list<WhatsappApiFlowCategory>>
+            endpoint_uri: optional<string>
+            application_id: optional<string>
+      response: WhatsappApiUpdateFlowMetadataResponse
+
+    listFlows:
+      docs: List all flows under a WABA account.
+      url: graph
+      path: /{wabaId}/flows
+      method: GET
+      path-parameters:
+        wabaId: string
+      response: WhatsappApiGetManyFlowsResponse
+
+    getFlow:
+      docs: Get a single flow by ID, optionally specifying fields.
+      url: graph
+      path: /{flowId}
+      method: GET
+      path-parameters:
+        flowId: string
+      request:
+        name: WhatsappApiGetFlowRequest
+        query-parameters:
+          fields: optional<string>
+      response: WhatsappApiFlowDetail
+
+    deleteFlow:
+      docs: Delete a flow permanently.
+      url: graph
+      path: /{flowId}
+      method: DELETE
+      path-parameters:
+        flowId: string
+      response: WhatsappApiDeleteFlowResponse
+
+    updateFlowJson:
+      docs: Upload or replace the flow.json asset for a flow.
+      url: graph
+      path: /{flowId}/assets
+      method: POST
+      path-parameters:
+        flowId: string
+      request:
+        name: WhatsappApiUpdateFlowJsonRequest
+        body:
+          properties:
+            name:
+              type: literal<"flow.json">
+            asset_type:
+              type: literal<"FLOW_JSON">
+            file: unknown
+      response: WhatsappApiUpdateFlowJsonResponse
+
+    getFlowPreview:
+      docs: >
+        Get the web preview URL for a flow. The `fields` parameter controls
+        whether the existing preview link is invalidated. The returned
+        `preview_url` can then have interactive URL parameters (interactive,
+        flow_token, flow_action, flow_action_payload, phone_number) appended
+        by the caller.
+      url: graph
+      path: /{flowId}
+      method: GET
+      path-parameters:
+        flowId: string
+      request:
+        name: WhatsappApiGetFlowPreviewRequest
+        query-parameters:
+          fields:
+            type: literal<"preview.invalidate(false)">
+      response: WhatsappApiFlowPreviewResponse
+
+    publishFlow:
+      docs: Publish a flow, making it available to send to users.
+      url: graph
+      path: /{flowId}/publish
+      method: POST
+      path-parameters:
+        flowId: string
+      response: WhatsappApiPublishFlowResponse

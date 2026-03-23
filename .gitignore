@@ -1,5 +1,17 @@
+# dependencies
+node_modules
+
+# output
 **/.definition
 .turbo
-node_modules
+
+# vscode
 .vscode
+
+# ai
 opencode.json
+
+# env
+.env
+.env.development
+.env.production

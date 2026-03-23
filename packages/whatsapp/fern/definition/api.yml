@@ -1,0 +1,19 @@
+name: whatsapp-cloud-api
+docs: |
+  WhatsApp Cloud API — Meta Graph API v20+ wrapper.
+  Base URL: https://graph.facebook.com/v{version}
+
+auth: Bearer
+auth-schemes:
+  Bearer:
+    scheme: bearer
+    token:
+      name: accessToken
+      env: META_APP_ACCESS_TOKEN
+
+environments:
+  Production:
+    urls:
+      graph: https://graph.facebook.com
+
+default-environment: Production

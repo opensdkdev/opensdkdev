@@ -67,11 +67,11 @@ jobs:
 
       - name: Validate publishing secrets
         env:
-          GH_TOKEN_VALUE: ${{ secrets.OPENSDKDEV_GH_TOKEN }}
+          GH_TOKEN_VALUE: ${{ secrets.OPENDEVSDK_GH_TOKEN }}
           NPM_TOKEN_VALUE: ${{ secrets.NPM_TOKEN }}
         run: |
           if [ -z "$GH_TOKEN_VALUE" ]; then
-            echo "Missing secret OPENSDKDEV_GH_TOKEN" >&2
+            echo "Missing secret OPENDEVSDK_GH_TOKEN" >&2
             exit 1
           fi
 
@@ -85,7 +85,7 @@ jobs:
 
       - name: Build SDK packages
         env:
-          GH_TOKEN: ${{ secrets.OPENSDKDEV_GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.OPENDEVSDK_GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |

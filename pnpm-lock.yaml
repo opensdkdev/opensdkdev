@@ -8,14 +8,20 @@ importers:
 
   .:
     devDependencies:
+      dotenv:
+        specifier: 17.3.1
+        version: 17.3.1
       turbo:
         specifier: 2.8.20
         version: 2.8.20
-      yaml:
-        specifier: 2.8.3
-        version: 2.8.3
 
   packages/purelymail:
+    devDependencies:
+      fern-api:
+        specifier: 4.26.0
+        version: 4.26.0
+
+  packages/whatsapp:
     devDependencies:
       fern-api:
         specifier: 4.26.0
@@ -121,6 +127,10 @@ packages:
     resolution: {integrity: sha512-tRkV3HJ1ASwm19THiiLIXLO7Im7wlTuKnvkYaTkyoAPefqjNg7W7DHKUlGRxy9vxDvbyCYQkQozvptuMkGCg8A==}
     engines: {node: '>=4'}
 
+  dotenv@17.3.1:
+    resolution: {integrity: sha512-IO8C/dzEb6O3F9/twg6ZLXz164a2fhTnEWb95H23Dm4OuN+92NmEAlTrupP9VW6Jm3sO26tQlqyvyi4CsnY9GA==}
+    engines: {node: '>=12'}
+
   emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
 
@@ -142,11 +152,6 @@ packages:
 
   turbo@2.8.20:
     resolution: {integrity: sha512-Rb4qk5YT8RUwwdXtkLpkVhNEe/lor6+WV7S5tTlLpxSz6MjV5Qi8jGNn4gS6NAvrYGA/rNrE6YUQM85sCZUDbQ==}
-    hasBin: true
-
-  yaml@2.8.3:
-    resolution: {integrity: sha512-AvbaCLOO2Otw/lW5bmh9d/WEdcDFdQp2Z2ZUH3pX9U2ihyUY0nvLv7J6TrWowklRGPYbB/IuIMfYgxaCPg5Bpg==}
-    engines: {node: '>= 14.6'}
     hasBin: true
 
 snapshots:
@@ -214,6 +219,8 @@ snapshots:
     dependencies:
       string-width: 4.2.3
 
+  dotenv@17.3.1: {}
+
   emoji-regex@8.0.0: {}
 
   fern-api@4.26.0:
@@ -241,5 +248,3 @@ snapshots:
       '@turbo/linux-arm64': 2.8.20
       '@turbo/windows-64': 2.8.20
       '@turbo/windows-arm64': 2.8.20
-
-  yaml@2.8.3: {}

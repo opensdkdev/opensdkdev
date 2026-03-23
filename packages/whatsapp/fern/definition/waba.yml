@@ -1,0 +1,42 @@
+imports:
+  common: common.yml
+
+types:
+  WhatsappApiUploadEncryptionRequest:
+    properties:
+      business_public_key: string
+
+  WhatsappApiRegisterNumberRequest:
+    properties:
+      messaging_product:
+        type: literal<"whatsapp">
+      pin: string
+      data_localization_region: optional<common.WhatsappApiISOCountryCode>
+
+service:
+  base-path: ""
+  auth: true
+  endpoints:
+    uploadEncryptionKey:
+      docs: >
+        Upload the business public encryption key used for end-to-end encrypted
+        WhatsApp Flows. Uses application/x-www-form-urlencoded content type.
+      url: graph
+      path: /{numberId}/whatsapp_business_encryption
+      method: POST
+      path-parameters:
+        numberId: string
+      request:
+        body: WhatsappApiUploadEncryptionRequest
+        content-type: application/x-www-form-urlencoded
+
+    registerNumber:
+      docs: Register a phone number with WhatsApp Cloud API.
+      url: graph
+      path: /{numberId}/register
+      method: POST
+      path-parameters:
+        numberId: string
+      request:
+        name: WhatsappApiRegisterNumberRequestWrapper
+        body: WhatsappApiRegisterNumberRequest

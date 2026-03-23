@@ -1,5 +1,5 @@
 {
-  "name": "@opensdkdev/opensdkdev",
+  "name": "@opendevsdk/opendevsdk",
   "private": true,
   "publishConfig": {
     "access": "restricted"
@@ -8,12 +8,12 @@
     "build": "turbo run build",
     "build:force": "turbo run build --force",
     "check": "turbo run check",
-    "provision": "node scripts/provision-sdks.mjs",
-    "validate:packages": "node scripts/provision-sdks.mjs --validate-only"
+    "provision": "node scripts/provision-origins.mjs",
+    "validate:packages": "node scripts/provision-origins.mjs --validate-only"
   },
   "packageManager": "pnpm@10.31.0",
   "devDependencies": {
     "turbo": "2.8.20",
-    "yaml": "2.8.3"
+    "dotenv": "17.3.1"
   }
 }

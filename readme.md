@@ -1,3 +1,3 @@
-# OpenSDKDev
+# OpenDevSDK
 
-Providing SDKs for platforms that don't provide one.
+⚙️ SDKs, wherever they’re missing. Built with Fern.

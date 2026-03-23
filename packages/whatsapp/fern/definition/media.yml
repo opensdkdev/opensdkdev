@@ -1,0 +1,27 @@
+types:
+  WhatsappApiRetrieveMediaResponse:
+    properties:
+      messaging_product:
+        type: literal<"whatsapp">
+      url: string
+      mime_type: string
+      sha256: string
+      file_size: integer
+      id: string
+
+service:
+  base-path: ""
+  auth: true
+  endpoints:
+    getMedia:
+      docs: Retrieve media metadata (URL, mime type, size) by media ID.
+      url: graph
+      path: /{mediaId}
+      method: GET
+      path-parameters:
+        mediaId: string
+      request:
+        name: WhatsappApiGetMediaRequest
+        query-parameters:
+          phone_number_id: optional<string>
+      response: WhatsappApiRetrieveMediaResponse
