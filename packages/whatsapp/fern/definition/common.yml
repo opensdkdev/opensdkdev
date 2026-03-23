@@ -3,7 +3,7 @@ types:
   # Language & locale enums
   # ---------------------------------------------------------------------------
 
-  WhatsappApiLanguageTag:
+ LanguageTag:
     docs: WhatsApp-specific language tag values (underscore format).
     enum:
       - name: af
@@ -143,7 +143,7 @@ types:
       - name: zu
         value: zu
 
-  WhatsappApiISOCountryCode:
+ISOCountryCode:
     docs: ISO 3166-1 alpha-2 country codes supported by WhatsApp data localisation.
     enum:
       - AU

@@ -6,21 +6,21 @@ types:
   # ---------------------------------------------------------------------------
   # Incoming message types (from Message webhook)
   # ---------------------------------------------------------------------------
-  WhatsappApiWebhookContactObject:
+  WebhookContactObject:
     properties:
       wa_id: string
-      profile: WhatsappApiWebhookContactProfile
+      profile: WebhookContactProfile
 
-  WhatsappApiWebhookContactProfile:
+  WebhookContactProfile:
     properties:
       name: string
 
-  WhatsappApiWebhookMetadataObject:
+  WebhookMetadataObject:
     properties:
       display_phone_number: string
       phone_number_id: string
 
-  WhatsappApiWebhookConversationType:
+  WebhookConversationType:
     enum:
       - authentication
       - service
@@ -28,40 +28,40 @@ types:
       - marketing
       - referral_conversation
 
-  WhatsappApiWebhookMessageStatus:
+  WebhookMessageStatus:
     enum:
       - delivered
       - read
       - sent
 
-  WhatsappApiWebhookConversationOrigin:
+  WebhookConversationOrigin:
     properties:
-      type: WhatsappApiWebhookConversationType
+      type: WebhookConversationType
 
-  WhatsappApiWebhookConversation:
+  WebhookConversation:
     properties:
       id: string
-      origin: WhatsappApiWebhookConversationOrigin
+      origin: WebhookConversationOrigin
       expiration_timestamp: optional<long>
 
-  WhatsappApiWebhookPricing:
+  WebhookPricing:
     properties:
-      category: WhatsappApiWebhookConversationType
+      category: WebhookConversationType
       pricing_model:
         type: literal<"CBP">
 
-  WhatsappApiWebhookMessageStatusObject:
+  WebhookMessageStatusObject:
     properties:
       id: string
       biz_opaque_callback_data: optional<string>
-      conversation: optional<WhatsappApiWebhookConversation>
-      errors: optional<common.WhatsappApiErrors>
-      pricing: optional<WhatsappApiWebhookPricing>
+      conversation: optional<WebhookConversation>
+      errors: optional<common.Errors>
+      pricing: optional<WebhookPricing>
       recipient_id: string
-      status: WhatsappApiWebhookMessageStatus
+      status: WebhookMessageStatus
       timestamp: long
 
-  WhatsappApiWebhookMessageType:
+  WebhookMessageType:
     enum:
       - audio
       - button
@@ -75,51 +75,51 @@ types:
       - unknown
       - video
 
-  WhatsappApiWebhookInteractiveType:
+  WebhookInteractiveType:
     enum:
       - button_reply
       - list_reply
       - nfm_reply
 
-  WhatsappApiWebhookButtonReply:
+  WebhookButtonReply:
     properties:
       id: string
       title: string
 
-  WhatsappApiWebhookListReply:
+  WebhookListReply:
     properties:
       id: string
       title: string
       description: string
 
-  WhatsappApiWebhookNfmReply:
+  WebhookNfmReply:
     properties:
       response_json: string
       body: string
       name:
         type: literal<"flow">
 
-  WhatsappApiWebhookInteractiveObject:
+  WebhookInteractiveObject:
     properties:
-      type: WhatsappApiWebhookInteractiveType
-      button_reply: optional<WhatsappApiWebhookButtonReply>
-      list_reply: optional<WhatsappApiWebhookListReply>
-      nfm_reply: optional<WhatsappApiWebhookNfmReply>
+      type: WebhookInteractiveType
+      button_reply: optional<WebhookButtonReply>
+      list_reply: optional<WebhookListReply>
+      nfm_reply: optional<WebhookNfmReply>
 
-  WhatsappApiWebhookProductItem:
+  WebhookProductItem:
     properties:
       product_retailer_id: string
       quantity: integer
       item_price: string
       currency: string
 
-  WhatsappApiWebhookOrderObject:
+  WebhookOrderObject:
     properties:
       catalog_id: string
       text: string
-      product_items: list<WhatsappApiWebhookProductItem>
+      product_items: list<WebhookProductItem>
 
-  WhatsappApiWebhookReferralObject:
+  WebhookReferralObject:
     properties:
       source_url: string
       source_type: string
@@ -132,14 +132,14 @@ types:
       thumbnail_url: optional<string>
       ctwa_clid: optional<string>
 
-  WhatsappApiWebhookStickerObject:
+  WebhookStickerObject:
     properties:
       mime_type: string
       sha256: string
       id: string
       animated: optional<string>
 
-  WhatsappApiWebhookSystemObject:
+  WebhookSystemObject:
     properties:
       body: string
       identity: optional<string>
@@ -147,19 +147,19 @@ types:
       wa_id: optional<string>
       customer: optional<string>
 
-  WhatsappApiWebhookContextObject:
+  WebhookContextObject:
     properties:
       forwarded: optional<boolean>
       frequently_forwarded: optional<boolean>
       from: optional<string>
       id: optional<string>
 
-  WhatsappApiWebhookButtonObject:
+  WebhookButtonObject:
     properties:
       payload: string
       text: string
 
-  WhatsappApiWebhookDocumentObject:
+  WebhookDocumentObject:
     properties:
       caption: optional<string>
       filename: string
@@ -167,14 +167,14 @@ types:
       mime_type: string
       id: string
 
-  WhatsappApiWebhookImageObject:
+  WebhookImageObject:
     properties:
       caption: optional<string>
       sha256: string
       id: string
       mime_type: string
 
-  WhatsappApiWebhookVideoObject:
+  WebhookVideoObject:
     properties:
       id: string
       caption: optional<string>
@@ -182,73 +182,73 @@ types:
       sha256: string
       mime_type: string
 
-  WhatsappApiWebhookAudioObject:
+  WebhookAudioObject:
     properties:
       id: string
       mime_type: string
 
-  WhatsappApiWebhookIdentityObject:
+  WebhookIdentityObject:
     properties:
       acknowledged: boolean
       created_timestamp: long
       hash: string
 
-  WhatsappApiWebhookTextObject:
+  WebhookTextObject:
     properties:
       body: string
 
-  WhatsappApiWebhookMessageObject:
+  WebhookMessageObject:
     properties:
       id: string
       from: string
       timestamp: long
-      type: WhatsappApiWebhookMessageType
-      context: optional<WhatsappApiWebhookContextObject>
-      image: optional<WhatsappApiWebhookImageObject>
-      video: optional<WhatsappApiWebhookVideoObject>
-      interactive: optional<WhatsappApiWebhookInteractiveObject>
-      order: optional<WhatsappApiWebhookOrderObject>
-      referral: optional<WhatsappApiWebhookReferralObject>
-      sticker: optional<WhatsappApiWebhookStickerObject>
-      system: optional<WhatsappApiWebhookSystemObject>
-      text: optional<WhatsappApiWebhookTextObject>
-      identity: optional<WhatsappApiWebhookIdentityObject>
-      audio: optional<WhatsappApiWebhookAudioObject>
-      button: optional<WhatsappApiWebhookButtonObject>
-      document: optional<WhatsappApiWebhookDocumentObject>
-      errors: optional<common.WhatsappApiErrors>
+      type: WebhookMessageType
+      context: optional<WebhookContextObject>
+      image: optional<WebhookImageObject>
+      video: optional<WebhookVideoObject>
+      interactive: optional<WebhookInteractiveObject>
+      order: optional<WebhookOrderObject>
+      referral: optional<WebhookReferralObject>
+      sticker: optional<WebhookStickerObject>
+      system: optional<WebhookSystemObject>
+      text: optional<WebhookTextObject>
+      identity: optional<WebhookIdentityObject>
+      audio: optional<WebhookAudioObject>
+      button: optional<WebhookButtonObject>
+      document: optional<WebhookDocumentObject>
+      errors: optional<common.Errors>
 
   # Message webhook
-  WhatsappApiWebhookMessageChangeValue:
+  WebhookMessageChangeValue:
     properties:
       messaging_product:
         type: literal<"whatsapp">
-      metadata: WhatsappApiWebhookMetadataObject
-      contacts: optional<list<WhatsappApiWebhookContactObject>>
-      errors: optional<common.WhatsappApiErrors>
-      messages: optional<list<WhatsappApiWebhookMessageObject>>
-      statuses: optional<list<WhatsappApiWebhookMessageStatusObject>>
+      metadata: WebhookMetadataObject
+      contacts: optional<list<WebhookContactObject>>
+      errors: optional<common.Errors>
+      messages: optional<list<WebhookMessageObject>>
+      statuses: optional<list<WebhookMessageStatusObject>>
 
-  WhatsappApiWebhookMessageChange:
+  WebhookMessageChange:
     properties:
-      value: WhatsappApiWebhookMessageChangeValue
+      value: WebhookMessageChangeValue
       field:
         type: literal<"messages">
 
-  WhatsappApiWebhookMessageEntry:
+  WebhookMessageEntry:
     properties:
       id: string
-      changes: list<WhatsappApiWebhookMessageChange>
+      changes: list<WebhookMessageChange>
 
-  WhatsappApiWebhookMessageBody:
+  WebhookMessageBody:
     docs: Payload delivered by Meta to your webhook endpoint for incoming messages and status updates.
     properties:
       object:
         type: literal<"whatsapp_business_account">
-      entry: list<WhatsappApiWebhookMessageEntry>
+      entry: list<WebhookMessageEntry>
 
   # Flows webhook
-  WhatsappApiWebhookFlowEncryptedBody:
+  WebhookFlowEncryptedBody:
     docs: >
       Encrypted payload delivered by Meta to your endpoint when a user interacts
       with a WhatsApp Flow. Decrypt using the business private key and the
@@ -258,42 +258,42 @@ types:
       encrypted_flow_data: string
       initial_vector: string
 
-  WhatsappApiWebhookFlowDecryptedBody:
-    docs: Decrypted contents of a WhatsappApiWebhookFlowEncryptedBody.
+  WebhookFlowDecryptedBody:
+    docs: Decrypted contents of a WebhookFlowEncryptedBody.
     properties:
       version: string
       screen: string
-      action: flows.WhatsappApiFlowAction
+      action: flows.FlowAction
       data: map<string, unknown>
       flow_token: string
 
-  WhatsappApiWebhookFlowResponse:
+  WebhookFlowResponse:
     properties:
       screen: string
       data: map<string, unknown>
 
-  WhatsappApiWebhookFlowPingResponse:
+  WebhookFlowPingResponse:
     properties:
-      data: WhatsappApiWebhookFlowPingData
+      data: WebhookFlowPingData
 
-  WhatsappApiWebhookFlowPingData:
+  WebhookFlowPingData:
     properties:
       status:
         type: literal<"active">
 
 webhooks:
-  WhatsappApiWebhookMessage:
+  WebhookMessage:
     display-name: Message Webhook
     docs: >
       Incoming webhook from Meta containing messages, delivery statuses,
       and contact information for a WhatsApp Business number.
     method: POST
-    payload: WhatsappApiWebhookMessageBody
+    payload: WebhookMessageBody
 
-  WhatsappApiWebhookFlow:
+  WebhookFlow:
     display-name: Flows Webhook
     docs: >
       Incoming encrypted webhook from Meta when a user interacts with a
       WhatsApp Flow. The payload must be decrypted before use.
     method: POST
-    payload: WhatsappApiWebhookFlowEncryptedBody
+    payload: WebhookFlowEncryptedBody

@@ -1,5 +1,5 @@
 types:
-  WhatsappApiRetrieveMediaResponse:
+  RetrieveMediaResponse:
     properties:
       messaging_product:
         type: literal<"whatsapp">
@@ -21,7 +21,7 @@ service:
       path-parameters:
         mediaId: string
       request:
-        name: WhatsappApiGetMediaRequest
+        name: GetMediaRequest
         query-parameters:
           phone_number_id: optional<string>
-      response: WhatsappApiRetrieveMediaResponse
+      response: RetrieveMediaResponse

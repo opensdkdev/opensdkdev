@@ -6,7 +6,7 @@ types:
   # ---------------------------------------------------------------------------
   # Enums
   # ---------------------------------------------------------------------------
-  WhatsappApiMessageType:
+  MessageType:
     enum:
       - text
       - reaction
@@ -20,7 +20,7 @@ types:
       - template
       - contacts
 
-  WhatsappApiInteractiveActionType:
+  InteractiveActionType:
     enum:
       - button
       - catalog_message
@@ -29,14 +29,14 @@ types:
       - product_list
       - flow
 
-  WhatsappApiTemplateComponentType:
+  TemplateComponentType:
     enum:
       - header
       - body
       - footer
       - button
 
-  WhatsappApiTemplateParameterType:
+  TemplateParameterType:
     enum:
       - text
       - currency
@@ -45,26 +45,26 @@ types:
       - video
       - document
 
-  WhatsappApiTemplateButtonSubType:
+  TemplateButtonSubType:
     enum:
       - quick_reply
       - url
       - copy_code
       - CATALOG
 
-  WhatsappApiTemplateButtonParameterType:
+  TemplateButtonParameterType:
     enum:
       - payload
       - text
       - coupon_code
       - action
 
-  WhatsappApiInteractiveFlowAction:
+  InteractiveFlowAction:
     enum:
       - navigate
       - data_exchange
 
-  WhatsappApiFlowMode:
+  FlowMode:
     enum:
       - draft
       - published
@@ -72,7 +72,7 @@ types:
   # ---------------------------------------------------------------------------
   # Text Message
   # ---------------------------------------------------------------------------
-  WhatsappApiTextMessage:
+  TextMessage:
     properties:
       body: string
       preview_url: optional<boolean>
@@ -80,7 +80,7 @@ types:
   # ---------------------------------------------------------------------------
   # Reaction Message
   # ---------------------------------------------------------------------------
-  WhatsappApiReactionMessage:
+  ReactionMessage:
     properties:
       message_id: string
       emoji: string
@@ -88,7 +88,7 @@ types:
   # ---------------------------------------------------------------------------
   # Location Message
   # ---------------------------------------------------------------------------
-  WhatsappApiLocationMessage:
+  LocationMessage:
     properties:
       latitude: double
       longitude: double
@@ -98,88 +98,88 @@ types:
   # ---------------------------------------------------------------------------
   # Media Messages (with id/link variants)
   # ---------------------------------------------------------------------------
-  WhatsappApiImageMessage:
+  ImageMessage:
     discriminated: false
     union:
-      - WhatsappApiImageById
-      - WhatsappApiImageByLink
+      - ImageById
+      - ImageByLink
 
-  WhatsappApiImageById:
+  ImageById:
     properties:
       id: string
       caption: optional<string>
 
-  WhatsappApiImageByLink:
+  ImageByLink:
     properties:
       link: string
       caption: optional<string>
 
-  WhatsappApiDocumentMessage:
+  DocumentMessage:
     discriminated: false
     union:
-      - WhatsappApiDocumentById
-      - WhatsappApiDocumentByLink
+      - DocumentById
+      - DocumentByLink
 
-  WhatsappApiDocumentById:
+  DocumentById:
     properties:
       id: string
       caption: optional<string>
       filename: optional<string>
 
-  WhatsappApiDocumentByLink:
+  DocumentByLink:
     properties:
       link: string
       caption: optional<string>
       filename: optional<string>
 
-  WhatsappApiAudioMessage:
+  AudioMessage:
     discriminated: false
     union:
-      - WhatsappApiAudioById
-      - WhatsappApiAudioByLink
+      - AudioById
+      - AudioByLink
 
-  WhatsappApiAudioById:
+  AudioById:
     properties:
       id: string
 
-  WhatsappApiAudioByLink:
+  AudioByLink:
     properties:
       link: string
 
-  WhatsappApiVideoMessage:
+  VideoMessage:
     discriminated: false
     union:
-      - WhatsappApiVideoById
-      - WhatsappApiVideoByLink
+      - VideoById
+      - VideoByLink
 
-  WhatsappApiVideoById:
+  VideoById:
     properties:
       id: string
       caption: optional<string>
 
-  WhatsappApiVideoByLink:
+  VideoByLink:
     properties:
       link: string
       caption: optional<string>
 
-  WhatsappApiStickerMessage:
+  StickerMessage:
     discriminated: false
     union:
-      - WhatsappApiStickerById
-      - WhatsappApiStickerByLink
+      - StickerById
+      - StickerByLink
 
-  WhatsappApiStickerById:
+  StickerById:
     properties:
       id: string
 
-  WhatsappApiStickerByLink:
+  StickerByLink:
     properties:
       link: string
 
   # ---------------------------------------------------------------------------
   # Contact Message
   # ---------------------------------------------------------------------------
-  WhatsappApiContactName:
+  ContactName:
     properties:
       formatted_name: string
       first_name: optional<string>
@@ -188,13 +188,13 @@ types:
       prefix: optional<string>
       suffix: optional<string>
 
-  WhatsappApiContactPhone:
+  ContactPhone:
     properties:
       phone: string
       type: optional<string>
       wa_id: optional<string>
 
-  WhatsappApiContactAddress:
+  ContactAddress:
     properties:
       street: optional<string>
       city: optional<string>
@@ -204,60 +204,60 @@ types:
       country_code: optional<string>
       type: optional<string>
 
-  WhatsappApiContactEmail:
+  ContactEmail:
     properties:
       email: optional<string>
       type: optional<string>
 
-  WhatsappApiContactUrl:
+  ContactUrl:
     properties:
       url: optional<string>
       type: optional<string>
 
-  WhatsappApiContactOrg:
+  ContactOrg:
     properties:
       company: optional<string>
       department: optional<string>
       title: optional<string>
 
-  WhatsappApiContact:
+  Contact:
     properties:
-      name: WhatsappApiContactName
-      phones: list<WhatsappApiContactPhone>
-      addresses: optional<list<WhatsappApiContactAddress>>
-      emails: optional<list<WhatsappApiContactEmail>>
-      urls: optional<list<WhatsappApiContactUrl>>
-      org: optional<WhatsappApiContactOrg>
+      name: ContactName
+      phones: list<ContactPhone>
+      addresses: optional<list<ContactAddress>>
+      emails: optional<list<ContactEmail>>
+      urls: optional<list<ContactUrl>>
+      org: optional<ContactOrg>
       birthday: optional<string>
 
-  WhatsappApiContactMessage:
-    type: list<WhatsappApiContact>
+  ContactMessage:
+    type: list<Contact>
 
   # ---------------------------------------------------------------------------
   # Template Message
   # ---------------------------------------------------------------------------
-  WhatsappApiTemplateLanguage:
+  TemplateLanguage:
     properties:
-      code: common.WhatsappApiLanguageTag
+      code: common.LanguageTag
 
-  WhatsappApiTemplateComponent:
+  TemplateComponent:
     discriminated: false
     union:
-      - WhatsappApiTemplateHeaderBodyFooterComponent
-      - WhatsappApiTemplateButtonComponent
+      - TemplateHeaderBodyFooterComponent
+      - TemplateButtonComponent
 
-  WhatsappApiTemplateHeaderBodyFooterComponent:
+  TemplateHeaderBodyFooterComponent:
     properties:
-      type: WhatsappApiTemplateComponentType
-      parameters: optional<list<WhatsappApiTemplateParameter>>
+      type: TemplateComponentType
+      parameters: optional<list<TemplateParameter>>
 
-  WhatsappApiTemplateCurrency:
+  TemplateCurrency:
     properties:
       fallback_value: string
       code: string
       amount_1000: integer
 
-  WhatsappApiTemplateDateTime:
+  TemplateDateTime:
     properties:
       fallback_value: string
       day_of_week: optional<integer>
@@ -268,210 +268,207 @@ types:
       minute: optional<integer>
       calendar: optional<string>
 
-  WhatsappApiTemplateParameter:
+  TemplateParameter:
     properties:
-      type: WhatsappApiTemplateParameterType
+      type: TemplateParameterType
       text: optional<string>
-      currency: optional<WhatsappApiTemplateCurrency>
-      date_time: optional<WhatsappApiTemplateDateTime>
-      image: optional<WhatsappApiImageByLink>
-      video: optional<WhatsappApiVideoByLink>
-      document: optional<WhatsappApiDocumentByLink>
+      currency: optional<TemplateCurrency>
+      date_time: optional<TemplateDateTime>
+      image: optional<ImageByLink>
+      video: optional<VideoByLink>
+      document: optional<DocumentByLink>
 
-  WhatsappApiTemplateCatalogAction:
+  TemplateCatalogAction:
     properties:
       thumbnail_product_retailer_id: string
 
-  WhatsappApiTemplateButtonComponent:
+  TemplateButtonComponent:
     properties:
       type:
         type: literal<"button">
-      sub_type: WhatsappApiTemplateButtonSubType
+      sub_type: TemplateButtonSubType
       index: unknown
-      parameters: list<WhatsappApiTemplateButtonParameter>
+      parameters: list<TemplateButtonParameter>
 
-  WhatsappApiTemplateButtonParameter:
+  TemplateButtonParameter:
     properties:
-      type: WhatsappApiTemplateButtonParameterType
+      type: TemplateButtonParameterType
       payload: optional<string>
       text: optional<string>
       coupon_code: optional<string>
-      action: optional<WhatsappApiTemplateCatalogAction>
+      action: optional<TemplateCatalogAction>
 
-  WhatsappApiTemplateMessage:
+  TemplateMessage:
     properties:
       name: string
-      language: WhatsappApiTemplateLanguage
+      language: TemplateLanguage
       namespace: optional<string>
-      components: optional<list<WhatsappApiTemplateComponent>>
+      components: optional<list<TemplateComponent>>
 
   # ---------------------------------------------------------------------------
   # Interactive Message
   # ---------------------------------------------------------------------------
-  WhatsappApiInteractiveTextHeader:
+  InteractiveTextHeader:
     properties:
       type:
         type: literal<"text">
       text: string
       sub_text: optional<string>
 
-  WhatsappApiInteractiveVideoHeader:
+  InteractiveVideoHeader:
     properties:
       type:
         type: literal<"video">
-      video: WhatsappApiVideoByLink
+      video: VideoByLink
 
-  WhatsappApiInteractiveDocumentHeader:
+  InteractiveDocumentHeader:
     properties:
       type:
         type: literal<"document">
-      document: WhatsappApiDocumentByLink
+      document: DocumentByLink
 
-  WhatsappApiInteractiveImageHeader:
+  InteractiveImageHeader:
     properties:
       type:
         type: literal<"image">
-      image: WhatsappApiImageByLink
+      image: ImageByLink
 
-  WhatsappApiInteractiveHeader:
+  InteractiveHeader:
     discriminated: false
     union:
-      - WhatsappApiInteractiveTextHeader
-      - WhatsappApiInteractiveVideoHeader
-      - WhatsappApiInteractiveDocumentHeader
-      - WhatsappApiInteractiveImageHeader
+      - InteractiveTextHeader
+      - InteractiveVideoHeader
+      - InteractiveDocumentHeader
+      - InteractiveImageHeader
 
-  WhatsappApiInteractiveBody:
+  InteractiveBody:
     properties:
       text: string
 
-  WhatsappApiInteractiveFooter:
+  InteractiveFooter:
     properties:
       text: string
 
-  WhatsappApiInteractiveFlowParameters:
+  InteractiveFlowParameters:
     properties:
       flow_message_version: optional<string>
       flow_token: optional<string>
       flow_name: optional<string>
       flow_cta: optional<string>
-      flow_action: optional<WhatsappApiInteractiveFlowAction>
-      flow_action_payload: optional<flows.WhatsappApiFlowActionPayload>
-      mode: WhatsappApiFlowMode
+      flow_action: optional<InteractiveFlowAction>
+      flow_action_payload: optional<flows.FlowActionPayload>
+      mode: FlowMode
 
-  WhatsappApiInteractiveButtonReplyContent:
+  InteractiveButtonReplyContent:
     properties:
       title: string
       id: string
 
-  WhatsappApiInteractiveActionButtonReply:
+  InteractiveActionButtonReply:
     properties:
       type:
         type: literal<"reply">
-      reply: WhatsappApiInteractiveButtonReplyContent
+      reply: InteractiveButtonReplyContent
 
-  WhatsappApiInteractiveSectionRow:
+  InteractiveSectionRow:
     properties:
       id: string
       title: string
       description: optional<string>
 
-  WhatsappApiInteractiveProductItem:
+  InteractiveProductItem:
     properties:
       product_retailer_id: string
 
-  WhatsappApiInteractiveSection:
+  InteractiveSection:
     properties:
       title: string
-      rows: list<WhatsappApiInteractiveSectionRow>
-      product_items: optional<list<WhatsappApiInteractiveProductItem>>
+      rows: list<InteractiveSectionRow>
+      product_items: optional<list<InteractiveProductItem>>
 
-  WhatsappApiInteractiveAction:
+  InteractiveAction:
     properties:
       name: optional<string>
-      parameters: optional<WhatsappApiInteractiveFlowParameters>
+      parameters: optional<InteractiveFlowParameters>
       button: optional<string>
-      buttons: optional<list<WhatsappApiInteractiveActionButtonReply>>
+      buttons: optional<list<InteractiveActionButtonReply>>
       catalog_id: optional<string>
       product_retailer_id: optional<string>
-      sections: optional<list<WhatsappApiInteractiveSection>>
-      mode: optional<WhatsappApiFlowMode>
+      sections: optional<list<InteractiveSection>>
+      mode: optional<FlowMode>
 
-  WhatsappApiInteractiveMessage:
+  InteractiveMessage:
     properties:
-      type: WhatsappApiInteractiveActionType
-      body: optional<WhatsappApiInteractiveBody>
-      footer: optional<WhatsappApiInteractiveFooter>
-      header: optional<WhatsappApiInteractiveHeader>
-      action: WhatsappApiInteractiveAction
+      type: InteractiveActionType
+      body: optional<InteractiveBody>
+      footer: optional<InteractiveFooter>
+      header: optional<InteractiveHeader>
+      action: InteractiveAction
 
   # ---------------------------------------------------------------------------
   # Send Message Request/Response
   # ---------------------------------------------------------------------------
-  WhatsappApiSendMessageContext:
+  SendMessageContext:
     properties:
       message_id: string
 
-  WhatsappApiSendMessageRequest:
+  SendMessageRequest:
     properties:
       messaging_product:
-        type: literal<"whatsapp">
-      to: string
-      type: WhatsappApiMessageType
+        type: literal<"      to: string
+      type: MessageType
       preview_url: optional<boolean>
       recipient_type: optional<string>
       biz_opaque_callback_data: optional<string>
-      context: optional<WhatsappApiSendMessageContext>
-      text: optional<WhatsappApiTextMessage>
-      reaction: optional<WhatsappApiReactionMessage>
-      location: optional<WhatsappApiLocationMessage>
-      audio: optional<WhatsappApiAudioMessage>
-      document: optional<WhatsappApiDocumentMessage>
-      image: optional<WhatsappApiImageMessage>
-      video: optional<WhatsappApiVideoMessage>
-      sticker: optional<WhatsappApiStickerMessage>
-      interactive: optional<WhatsappApiInteractiveMessage>
-      template: optional<WhatsappApiTemplateMessage>
-      contacts: optional<WhatsappApiContactMessage>
+      context: optional<SendMessageContext>
+      text: optional<TextMessage>
+      reaction: optional<ReactionMessage>
+      location: optional<LocationMessage>
+      audio: optional<AudioMessage>
+      document: optional<DocumentMessage>
+      image: optional<ImageMessage>
+      video: optional<VideoMessage>
+      sticker: optional<StickerMessage>
+      interactive: optional<InteractiveMessage>
+      template: optional<TemplateMessage>
+      contacts: optional<ContactMessage>
 
-  WhatsappApiSendMessageContactProfile:
+  SendMessageContactProfile:
     properties:
       name: string
 
-  WhatsappApiSendMessageContactResult:
+  SendMessageContactResult:
     properties:
       wa_id: string
-      profile: WhatsappApiSendMessageContactProfile
+      profile: SendMessageContactProfile
 
-  WhatsappApiSendMessageMessageResult:
+  SendMessageMessageResult:
     properties:
       id: string
 
-  WhatsappApiSendMessageResponse:
+  SendMessageResponse:
     properties:
       messaging_product:
-        type: literal<"whatsapp">
-      contacts: list<WhatsappApiSendMessageContactResult>
-      messages: list<WhatsappApiSendMessageMessageResult>
+        type: literal<"      contacts: list<SendMessageContactResult>
+      messages: list<SendMessageMessageResult>
 
   # ---------------------------------------------------------------------------
   # Typing Indicator
   # ---------------------------------------------------------------------------
-  WhatsappApiTypingIndicator:
+  TypingIndicator:
     properties:
       type:
         type: literal<"text">
 
-  WhatsappApiShowTypingIndicatorRequest:
+  ShowTypingIndicatorRequest:
     properties:
       messaging_product:
-        type: literal<"whatsapp">
-      status:
+        type: literal<"      status:
         type: literal<"read">
       message_id: string
-      typing_indicator: WhatsappApiTypingIndicator
+      typing_indicator: TypingIndicator
 
-  WhatsappApiShowTypingIndicatorResponse:
+  ShowTypingIndicatorResponse:
     properties:
       success: boolean
 
@@ -480,18 +477,18 @@ service:
   auth: true
   endpoints:
     sendMessage:
-      docs: Send a WhatsApp message (text, media, interactive, template, contacts, etc.)
+      docs: Send a ssage (text, media, interactive, template, contacts, etc.)
       url: graph
       path: /{numberId}/messages
       method: POST
       path-parameters:
         numberId:
-          docs: WhatsApp phone number ID
+          docs: one number ID
           type: string
       request:
         name: SendMessageWrapper
-        body: WhatsappApiSendMessageRequest
-      response: WhatsappApiSendMessageResponse
+        body: SendMessageRequest
+      response: SendMessageResponse
 
     showTypingIndicator:
       docs: >
@@ -504,5 +501,5 @@ service:
         numberId: string
       request:
         name: ShowTypingIndicatorWrapper
-        body: WhatsappApiShowTypingIndicatorRequest
-      response: WhatsappApiShowTypingIndicatorResponse
+        body: ShowTypingIndicatorRequest
+      response: ShowTypingIndicatorResponse

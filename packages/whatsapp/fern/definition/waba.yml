@@ -2,16 +2,16 @@ imports:
   common: common.yml
 
 types:
-  WhatsappApiUploadEncryptionRequest:
+  UploadEncryptionRequest:
     properties:
       business_public_key: string
 
-  WhatsappApiRegisterNumberRequest:
+  RegisterNumberRequest:
     properties:
       messaging_product:
         type: literal<"whatsapp">
       pin: string
-      data_localization_region: optional<common.WhatsappApiISOCountryCode>
+      data_localization_region: optional<common.ISOCountryCode>
 
 service:
   base-path: ""
@@ -27,7 +27,7 @@ service:
       path-parameters:
         numberId: string
       request:
-        body: WhatsappApiUploadEncryptionRequest
+        body: UploadEncryptionRequest
         content-type: application/x-www-form-urlencoded
 
     registerNumber:
@@ -38,5 +38,5 @@ service:
       path-parameters:
         numberId: string
       request:
-        name: WhatsappApiRegisterNumberRequestWrapper
-        body: WhatsappApiRegisterNumberRequest
+        name: RegisterNumberRequestWrapper
+        body: RegisterNumberRequest

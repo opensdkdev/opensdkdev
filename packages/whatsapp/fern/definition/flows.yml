@@ -6,7 +6,7 @@ types:
   # ---------------------------------------------------------------------------
   # Enums
   # ---------------------------------------------------------------------------
-  WhatsappApiFlowCategory:
+  FlowCategory:
     enum:
       - SIGN_UP
       - SIGN_IN
@@ -17,7 +17,7 @@ types:
       - SURVEY
       - OTHER
 
-  WhatsappApiFlowStatus:
+  FlowStatus:
     enum:
       - DRAFT
       - PUBLISHED
@@ -25,13 +25,13 @@ types:
       - BLOCKED
       - THROTTLED
 
-  WhatsappApiFlowCanSendMessageStatus:
+  FlowCanSendMessageStatus:
     enum:
       - AVAILABLE
       - LIMITED
       - BLOCKED
 
-  WhatsappApiFlowAction:
+  FlowAction:
     enum:
       - name: INIT
         value: INIT
@@ -47,7 +47,7 @@ types:
   # ---------------------------------------------------------------------------
   # Flow Data Models
   # ---------------------------------------------------------------------------
-  WhatsappApiFlowValidationError:
+  FlowValidationError:
     properties:
       error: string
       error_type: string
@@ -57,7 +57,7 @@ types:
       column_start: integer
       column_end: integer
 
-  WhatsappApiFlowMediaEncryptionMetadata:
+  FlowMediaEncryptionMetadata:
     properties:
       encrypted_hash: string
       iv: string
@@ -65,70 +65,70 @@ types:
       hmac_key: string
       plaintext_hash: string
 
-  WhatsappApiFlowMedia:
+  FlowMedia:
     properties:
       media_id: string
       cdn_url: string
       file_name: string
-      encryption_metadata: WhatsappApiFlowMediaEncryptionMetadata
+      encryption_metadata: FlowMediaEncryptionMetadata
 
-  WhatsappApiFlowMetadata:
+  FlowMetadata:
     properties:
       name: string
-      categories: list<WhatsappApiFlowCategory>
+      categories: list<FlowCategory>
       application_id: optional<string>
       endpoint_uri: optional<string>
 
-  WhatsappApiFlowPreview:
+  FlowPreview:
     properties:
       preview_url: string
       expires_at: string
 
-  WhatsappApiFlowPreviewParams:
+  FlowPreviewParams:
     properties:
       interactive: optional<boolean>
       flow_token: optional<string>
-      flow_action: optional<messages.WhatsappApiInteractiveFlowAction>
-      flow_action_payload: optional<WhatsappApiFlowActionPayload>
+      flow_action: optional<messages.InteractiveFlowAction>
+      flow_action_payload: optional<FlowActionPayload>
       phone_number: optional<string>
       debug: optional<boolean>
 
-  WhatsappApiFlowHealthStatus:
+  FlowHealthStatus:
     properties:
-      can_send_message: WhatsappApiFlowCanSendMessageStatus
+      can_send_message: FlowCanSendMessageStatus
 
-  WhatsappApiFlowValidationResult:
+  FlowValidationResult:
     properties:
-      validation_errors: list<WhatsappApiFlowValidationError>
+      validation_errors: list<FlowValidationError>
 
   # ---------------------------------------------------------------------------
   # Flow Response Models
   # ---------------------------------------------------------------------------
-  WhatsappApiFlowSummary:
+  FlowSummary:
     docs: Summary row returned in list responses.
     properties:
       id: string
       name: string
-      status: WhatsappApiFlowStatus
-      categories: list<WhatsappApiFlowCategory>
-      validation_errors: list<WhatsappApiFlowValidationError>
+      status: FlowStatus
+      categories: list<FlowCategory>
+      validation_errors: list<FlowValidationError>
 
-  WhatsappApiFlowDetail:
+  FlowDetail:
     docs: Full flow detail returned by a single-flow read.
-    extends: WhatsappApiFlowSummary
+    extends: FlowSummary
     properties:
       json_version: optional<string>
       data_api_version: optional<string>
       endpoint_uri: optional<string>
-      preview: optional<WhatsappApiFlowPreviewResponse>
-      health_status: optional<WhatsappApiFlowHealthStatus>
+      preview: optional<FlowPreviewResponse>
+      health_status: optional<FlowHealthStatus>
 
-  WhatsappApiFlowPreviewResponse:
+  FlowPreviewResponse:
     properties:
       id: string
-      preview: WhatsappApiFlowPreview
+      preview: FlowPreview
 
-  WhatsappApiFlowActionPayload:
+  FlowActionPayload:
     properties:
       screen: string
       data: map<string, unknown>
@@ -136,58 +136,58 @@ types:
   # ---------------------------------------------------------------------------
   # Request/Response DTOs
   # ---------------------------------------------------------------------------
-  WhatsappApiCreateFlowRequest:
+  CreateFlowRequest:
     properties:
       name: string
-      categories: list<WhatsappApiFlowCategory>
+      categories: list<FlowCategory>
       clone_flow_id: optional<string>
       endpoint_uri: optional<string>
       flow_json: optional<string>
       publish: optional<boolean>
 
-  WhatsappApiCreateFlowResponse:
+  CreateFlowResponse:
     properties:
       id: string
 
-  WhatsappApiUpdateFlowMetadataRequest:
+  UpdateFlowMetadataRequest:
     properties:
       name: optional<string>
-      categories: optional<list<WhatsappApiFlowCategory>>
+      categories: optional<list<FlowCategory>>
       endpoint_uri: optional<string>
       application_id: optional<string>
 
-  WhatsappApiUpdateFlowMetadataResponse:
+  UpdateFlowMetadataResponse:
     properties:
       success: boolean
 
-  WhatsappApiDeleteFlowResponse:
+  DeleteFlowResponse:
     properties:
       success: boolean
 
-  WhatsappApiGetFlowsQuery:
+  GetFlowsQuery:
     properties:
       fields: optional<string>
 
-  WhatsappApiFlowPagingCursors:
+  FlowPagingCursors:
     properties:
       before: string
       after: string
 
-  WhatsappApiFlowPaging:
+  FlowPaging:
     properties:
-      cursors: WhatsappApiFlowPagingCursors
+      cursors: FlowPagingCursors
 
-  WhatsappApiGetManyFlowsResponse:
+  GetManyFlowsResponse:
     properties:
-      data: list<WhatsappApiFlowSummary>
-      paging: WhatsappApiFlowPaging
+      data: list<FlowSummary>
+      paging: FlowPaging
 
-  WhatsappApiUpdateFlowJsonResponse:
+  UpdateFlowJsonResponse:
     properties:
       success: boolean
-      validation_errors: list<WhatsappApiFlowValidationError>
+      validation_errors: list<FlowValidationError>
 
-  WhatsappApiPublishFlowResponse:
+  PublishFlowResponse:
     properties:
       success: boolean
 
@@ -209,12 +209,12 @@ service:
         body:
           properties:
             name: string
-            categories: list<WhatsappApiFlowCategory>
+            categories: list<FlowCategory>
             clone_flow_id: optional<string>
             endpoint_uri: optional<string>
             flow_json: optional<string>
             publish: optional<boolean>
-      response: WhatsappApiCreateFlowResponse
+      response: CreateFlowResponse
 
     updateFlowMetadata:
       docs: Update name, categories, or endpoint URI of an existing flow.
@@ -228,10 +228,10 @@ service:
         body:
           properties:
             name: optional<string>
-            categories: optional<list<WhatsappApiFlowCategory>>
+            categories: optional<list<FlowCategory>>
             endpoint_uri: optional<string>
             application_id: optional<string>
-      response: WhatsappApiUpdateFlowMetadataResponse
+      response: UpdateFlowMetadataResponse
 
     listFlows:
       docs: List all flows under a WABA account.
@@ -240,7 +240,7 @@ service:
       method: GET
       path-parameters:
         wabaId: string
-      response: WhatsappApiGetManyFlowsResponse
+      response: GetManyFlowsResponse
 
     getFlow:
       docs: Get a single flow by ID, optionally specifying fields.
@@ -250,10 +250,10 @@ service:
       path-parameters:
         flowId: string
       request:
-        name: WhatsappApiGetFlowRequest
+        name: GetFlowRequest
         query-parameters:
           fields: optional<string>
-      response: WhatsappApiFlowDetail
+      response: FlowDetail
 
     deleteFlow:
       docs: Delete a flow permanently.
@@ -262,7 +262,7 @@ service:
       method: DELETE
       path-parameters:
         flowId: string
-      response: WhatsappApiDeleteFlowResponse
+      response: DeleteFlowResponse
 
     updateFlowJson:
       docs: Upload or replace the flow.json asset for a flow.
@@ -272,7 +272,7 @@ service:
       path-parameters:
         flowId: string
       request:
-        name: WhatsappApiUpdateFlowJsonRequest
+        name: UpdateFlowJsonRequest
         body:
           properties:
             name:
@@ -280,7 +280,7 @@ service:
             asset_type:
               type: literal<"FLOW_JSON">
             file: unknown
-      response: WhatsappApiUpdateFlowJsonResponse
+      response: UpdateFlowJsonResponse
 
     getFlowPreview:
       docs: >
@@ -295,11 +295,11 @@ service:
       path-parameters:
         flowId: string
       request:
-        name: WhatsappApiGetFlowPreviewRequest
+        name: GetFlowPreviewRequest
         query-parameters:
           fields:
             type: literal<"preview.invalidate(false)">
-      response: WhatsappApiFlowPreviewResponse
+      response: FlowPreviewResponse
 
     publishFlow:
       docs: Publish a flow, making it available to send to users.
@@ -308,4 +308,4 @@ service:
       method: POST
       path-parameters:
         flowId: string
-      response: WhatsappApiPublishFlowResponse
+      response: PublishFlowResponse
