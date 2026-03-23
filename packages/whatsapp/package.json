@@ -10,7 +10,7 @@
     "publish": "fern generate --group typescript",
     "definition": "fern write-definition",
     "check": "fern check",
-    "ci:publish": "pnpm provision && pnpm check && pnpm definition && pnpm publish"
+    "ci:publish": "pnpm provision && pnpm check && pnpm definition && pnpm publish --force"
   },
   "packageManager": "pnpm@10.31.0",
   "devDependencies": {
