@@ -7,10 +7,10 @@
   },
   "scripts": {
     "provision": "node ../../scripts/provision.mjs --package-dir .",
-    "publish": "fern generate --group typescript",
+    "release": "fern generate --group typescript",
     "definition": "fern write-definition",
     "check": "fern check",
-    "ci:publish": "pnpm provision && pnpm check && pnpm definition && pnpm publish --force"
+    "ci:release": "pnpm provision && pnpm check && pnpm definition && pnpm release --force"
   },
   "packageManager": "pnpm@10.31.0",
   "devDependencies": {

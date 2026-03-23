@@ -6,9 +6,9 @@
   },
   "scripts": {
     "check": "turbo run check",
-    "publish": "turbo run publish",
+    "release": "turbo run release",
     "provision": "turbo run provision",
-    "ci:publish": "turbo run ci:publish"
+    "ci:release": "turbo run ci:release"
   },
   "packageManager": "pnpm@10.31.0",
   "devDependencies": {

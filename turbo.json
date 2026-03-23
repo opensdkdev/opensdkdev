@@ -15,7 +15,7 @@
     "NPM_TOKEN"
   ],
   "tasks": {
-    "ci:publish": {
+    "ci:release": {
       "outputs": [
         "fern/.definition/**"
       ]
@@ -28,7 +28,7 @@
         "fern/.definition/**"
       ]
     },
-    "publish": {
+    "release": {
       "outputs": []
     },
     "check": {
