@@ -1,5 +1,5 @@
 groups:
- typescript:
+ whatsapp:
    generators:
      - name: fernapi/fern-typescript-sdk
        version: 3.59.3

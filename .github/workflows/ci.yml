@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - main
+      - coming_soon
   workflow_dispatch:
     inputs:
       force_build:

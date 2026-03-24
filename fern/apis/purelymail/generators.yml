@@ -9,7 +9,7 @@ api:
         prefer-undiscriminated-unions-with-literals: true
 
 groups:
-  typescript:
+  purelymail:
     generators:
       - name: fernapi/fern-typescript-sdk
         version: 3.59.3
